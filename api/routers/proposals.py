@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-import crud, schemas
+import schemas
+import crud.crud_proposals as crud
 from dependencies import get_db, get_current_user
 
 router = APIRouter(prefix="/proposals", tags=["Proposals"])
@@ -19,7 +20,7 @@ def create_proposal(
     return created_proposal
 
 # 🚀 Get All Proposals
-@router.get("/", response_model=list[schemas.ProposalResponse])
+@router.get("", response_model=list[schemas.ProposalResponse])
 def get_proposals(db: Session = Depends(get_db)):
     return crud.get_proposals(db)
 

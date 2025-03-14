@@ -6,6 +6,7 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str
 
+
 ### 🚀 User Schemas
 class UserBase(BaseModel):
     email: EmailStr
@@ -16,13 +17,27 @@ class UserCreate(UserBase):
 
 class UserResponse(UserBase):
     id: int
+    email: EmailStr  # Ensure email is returned
 
     class Config:
-        orm_mode = True  # Enables ORM conversion
+        from_attributes = True  # Enables ORM conversion
 
-class UserAuth(BaseModel):
-    email: EmailStr
-    password: str
+# class UserAuth(BaseModel):
+#     email: EmailStr
+#     password: str
+
+
+class CompanyBase(BaseModel):
+    name: str
+
+class CompanyCreate(CompanyBase):
+    pass
+
+class CompanyResponse(CompanyBase):
+    id: int
+
+    class Config:
+        from_attributes = True
 
 
 ### 🚀 Proposal Schemas
@@ -45,7 +60,7 @@ class ProposalResponse(ProposalBase):
     created_by: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 ### 🚀 Bid Schemas
 class BidBase(BaseModel):
@@ -62,4 +77,4 @@ class BidResponse(BidBase):
     submitted_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

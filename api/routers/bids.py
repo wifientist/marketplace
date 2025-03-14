@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-import crud, schemas
+import crud.crud_proposals as crud
+import schemas
 from dependencies import get_db
 
 router = APIRouter(prefix="/bids", tags=["Bids"])

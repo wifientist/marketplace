@@ -1,7 +1,12 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Enum
 from sqlalchemy.orm import relationship
 import datetime
 from database import Base
+import enum
+
+class RoleEnum(str, enum.Enum):
+    admin = "admin"
+    user = "user"
 
 class User(Base):
     __tablename__ = "users"
@@ -9,11 +14,25 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    role = Column(String, default="user", nullable=False)  # "user" or "admin"
+    role = Column(Enum(RoleEnum), default=RoleEnum.user, nullable=False)  # Default role is "user"
+
+    # 🔹 Add ForeignKey to link Users to Companies
+    company_id = Column(Integer, ForeignKey("companies.id"), nullable=True)
 
     # Relationships
     proposals = relationship("Proposal", back_populates="creator", cascade="all, delete")
     bids = relationship("Bid", back_populates="bidder", cascade="all, delete")
+    company = relationship("Company", back_populates="users")
+
+
+class Company(Base):
+    __tablename__ = "companies"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, nullable=False)
+
+    # Relationship: A company has multiple users
+    users = relationship("User", back_populates="company")
 
 
 class Proposal(Base):

@@ -18,6 +18,7 @@
 /api/migrations/versions
 /api/migrations/__pycache__
 /api/routers/__pycache__
+/api/crud/__pycache__
 
 # Dependency directories
 /node_modules/

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 import models
-from routers import proposals, bids, users, auth
+from routers import proposals, bids, users, auth, protected, company
 
 app = FastAPI()
 
@@ -19,17 +19,13 @@ models.Base.metadata.create_all(bind=engine)
 
 # 🚀 Include Routers
 app.include_router(users.router)
-app.include_router(auth.router)
+app.include_router(auth.router, tags=["Authentication"])
+app.include_router(company.router)
+app.include_router(protected.router, tags=["Protected"])
 app.include_router(proposals.router)
 app.include_router(bids.router)
 
 
-"""
-# Dependency to get database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-"""
+from fastapi.routing import APIRoute
+for route in app.routes:
+    print(route.path)
