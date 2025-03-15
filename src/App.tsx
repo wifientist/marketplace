@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Home from "@/pages/Home";
 import Proposals from "@/pages/Proposals";
 import NewProposalForm from "@/components/NewProposalForm";
+import NewBidForm from "@/components/NewBidForm";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Profile from "@/pages/Profile";
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/admin" element={<AdminRoute element={<Admin />} />} />
           <Route path="/proposals" element={<ProtectedRoute element={<Proposals />} />} />
           <Route path="/proposals/new" element={<ProtectedRoute element={<NewProposalForm />} />} />
+          <Route path="/bids/new" element={<NewBidForm />} />
           <Route path="*" element={<Navigate to="/" />} /> 
         </Routes>
       </div>

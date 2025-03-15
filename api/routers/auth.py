@@ -20,7 +20,7 @@ def auth_status(request: Request):
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    return JSONResponse(content={"message": "Authenticated", "user": payload.get("sub"), "role": payload.get("role")})
+    return JSONResponse(content={"message": "Authenticated", "user": payload.get("sub"), "id":payload.get("id"), "role": payload.get("role"), "company_id": payload.get("company_id")})
 
 
 ### 🚀 Signup Route
@@ -44,7 +44,7 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
     #access_token = create_access_token({"sub": new_user.email})
     #return {"access_token": access_token, "token_type": "bearer"}
     
-    access_token = create_access_token({"sub": new_user.email, "role": new_user.role, "company_id": new_user.company_id})
+    access_token = create_access_token({"sub": new_user.email, "id": new_user.id, "role": new_user.role, "company_id": new_user.company_id})
     response = JSONResponse(content={"message": "Signup successful"})
     response.set_cookie(
         key="session",
@@ -65,7 +65,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         print(f'NO USER, OR NO Verify_Password')
         raise HTTPException(status_code=400, detail="Invalid email or password")
     
-    access_token = create_access_token({"sub": user.email, "role": user.role})
+    access_token = create_access_token({"sub": user.email, "id": user.id, "role": user.role, "company_id": user.company_id})
 
     response = JSONResponse(content={"message": "Login successful"})
     response.set_cookie(

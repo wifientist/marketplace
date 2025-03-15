@@ -8,8 +8,8 @@ router = APIRouter(prefix="/bids", tags=["Bids"])
 
 # 🚀 Create Bid
 @router.post("/new", response_model=schemas.BidResponse)
-def create_bid(bid: schemas.BidCreate, proposal_id: int, db: Session = Depends(get_db)):
-    return crud.create_bid(db, bid, proposal_id)
+def create_bid(bid: schemas.BidCreate, db: Session = Depends(get_db)):
+    return crud.create_bid(db, bid)
 
 # 🚀 Get Bids for a Proposal
 @router.get("/{proposal_id}", response_model=list[schemas.BidResponse])

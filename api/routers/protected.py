@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from models import User
-from security import require_role
+from security import require_role, require_admin_company
 from dependencies import get_current_user
 
 router = APIRouter() #dependencies=[Depends(get_current_user)])
@@ -11,7 +11,10 @@ def user_profile(user: User = Depends(get_current_user)):
     return {"email": user.email, "role": user.role}
 
 @router.get("/admin")
-def admin_dashboard(user: dict = Depends(require_role("admin"))):
+def admin_dashboard(
+    user: dict = Depends(require_role("admin")),
+    company: dict = Depends(require_admin_company(1))  #TODO i feel like this should be hard coded here
+    ):
     return {"message": "Approved Admin!"}
 
 # 🔥 Admin-only endpoint

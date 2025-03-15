@@ -67,14 +67,14 @@ class BidBase(BaseModel):
     proposal_id: int
     amount: float
     message: str
+    bidder_id: int
+    submitted_at: datetime
 
 class BidCreate(BidBase):
     pass
 
 class BidResponse(BidBase):
     id: int
-    bidder_id: int
-    submitted_at: datetime
 
     class Config:
         from_attributes = True

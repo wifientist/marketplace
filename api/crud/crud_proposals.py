@@ -35,8 +35,9 @@ def get_proposal(db: Session, proposal_id: int):
 
 
 # 🚀 Create a Bid
-def create_bid(db: Session, bid: schemas.BidCreate, user_id: int):
-    db_bid = models.Bid(**bid.dict(), bidder_id=user_id, submitted_at=datetime.utcnow())
+def create_bid(db: Session, bid: schemas.BidCreate):
+    #submitted_at=datetime.fromisoformat(bid.submitted_at.replace("Z", "")),  # Convert ISO string to datetime
+    db_bid = models.Bid(**bid.dict()) #, submitted_at=submitted_at)
     db.add(db_bid)
     db.commit()
     db.refresh(db_bid)

@@ -132,7 +132,7 @@ const Proposals = () => {
                               key={bid.id}
                               className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm"
                             >
-                              <span className="font-medium text-gray-700">{bid.bidder_name}</span>
+                              <span className="font-medium text-gray-700">Bidder: {bid.bidder_id}</span>
                               <span className="text-gray-600">${bid.amount.toFixed(2)}</span>
                             </div>
                           ))}

@@ -63,10 +63,18 @@ def require_role(required_role: str):
         return user
     return role_checker
 
-def require_same_company():
-    def company_checker(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-        if not user.company:
-            raise HTTPException(status_code=403, detail="User does not belong to a company")
+#TODO add some more checks here for who can and cannot access certain endpoints
+def require_same_company(requested_company_id: int):
+    def company_checker(user: User = Depends(get_current_user)):
+        if not user.company_id == requested_company_id:
+            raise HTTPException(status_code=403, detail="User does not belong to that company")
+        return user
+    return company_checker
+
+def require_admin_company(required_company_id: int):
+    def company_checker(user: User = Depends(get_current_user)):
+        if not user.company_id == required_company_id:
+            raise HTTPException(status_code=403, detail="User does not belong to an Admin company")
         return user
     return company_checker
 

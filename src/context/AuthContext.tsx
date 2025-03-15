@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 interface AuthContextType {
   isAuthenticated: boolean | null;
   userRole: string | null;
+  userId: number | null;
   logout: () => void;
 }
 
@@ -23,6 +24,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -35,15 +37,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (!response.ok) {
           setIsAuthenticated(false);
           setUserRole(null);
+          setUserId(null);
           return;
         }
 
         const data = await response.json();
+
         setIsAuthenticated(true);
         setUserRole(data.role);
+        setUserId(data.id);
       } catch (error) {
         setIsAuthenticated(false);
         setUserRole(null);
+        setUserId(null);
       }
     };
 
@@ -59,13 +65,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setIsAuthenticated(false);
       setUserRole(null);
+      setUserId(null);
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userRole, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userId, userRole, logout }}>
       {isAuthenticated === null ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
