@@ -11,9 +11,7 @@ export default defineConfig({
     },
   },
   define: {
-    define: {
-      'process.env.API_BASE_URL': JSON.stringify('/api'),
-    },
+    'import.meta.env.VITE_API_BASE_URL': JSON.stringify('/api'),
   },
   server: {
     host: '0.0.0.0', // This allows external access
