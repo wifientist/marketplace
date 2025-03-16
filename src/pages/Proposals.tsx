@@ -2,7 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
-const API_BASE_URL = "/api";
+//const API_BASE_URL = "/api";
+const API_BASE_URL = process.env.API_BASE_URL;
+
 
 const Proposals = () => {
 

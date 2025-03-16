@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = process.env.API_BASE_URL;
+
 const Profile = () => {
     const [user, setUser] = useState<{ email: string; role: string } | null>(null);
     const [company, setCompany] = useState<{ id: number; name: string } | null>(null);
@@ -11,7 +13,7 @@ const Profile = () => {
         const fetchProfile = async () => {
 
             try {
-                const response = await fetch("/api/user_profile", {
+                const response = await fetch(`${API_BASE_URL}/user_profile`, {
                     method: "GET",
                     credentials: "include",
                 });

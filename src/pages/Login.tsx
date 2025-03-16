@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_BASE_URL = process.env.API_BASE_URL;
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,7 +16,7 @@ const Login = () => {
         formData.append("password", password);
 
         try {
-            const response = await fetch("/api/auth/token", {
+            const response = await fetch(`${API_BASE_URL}/auth/token`, {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: formData.toString(),

@@ -26,6 +26,6 @@ app.include_router(proposals.router)
 app.include_router(bids.router)
 
 
-from fastapi.routing import APIRoute
-for route in app.routes:
-    print(route.path)
+# from fastapi.routing import APIRoute
+# for route in app.routes:
+#     print(route.path)

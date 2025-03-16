@@ -10,6 +10,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  define: {
+    'process.env.API_BASE_URL': JSON.stringify(process.env.NODE_ENV === 'production' 
+      ? 'http://localhost:4174' // Local backend URL on same server
+      : '/api' // Dev proxy
+    ),
+  },
   server: {
     host: '0.0.0.0', // This allows external access
     proxy: {

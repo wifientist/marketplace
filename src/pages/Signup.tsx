@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+const API_BASE_URL = process.env.API_BASE_URL;
+
+
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,7 +15,7 @@ const Signup = () => {
         setSuccess(false);
 
         try {
-            const response = await fetch("/api/auth/signup", {
+            const response = await fetch(`${API_BASE_URL}/auth/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),

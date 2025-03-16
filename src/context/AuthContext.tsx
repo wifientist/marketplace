@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+const API_BASE_URL = process.env.API_BASE_URL;
+
 // Define context structure
 interface AuthContextType {
   isAuthenticated: boolean | null;
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("/api/auth/status", {
+        const response = await fetch(`${API_BASE_URL}/auth/status`, {
           method: "GET",
           credentials: "include",
         });
@@ -58,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch("/api/auth/logout", {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
