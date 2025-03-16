@@ -15,6 +15,7 @@
 /api/.env
 /api/__pycache__
 /api/.venv
+/api/migrations/
 /api/migrations/versions
 /api/migrations/__pycache__
 /api/routers/__pycache__
