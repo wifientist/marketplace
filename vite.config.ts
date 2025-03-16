@@ -22,6 +22,9 @@ export default defineConfig({
   },
   build: {
     sourcemap: false,
-  }
+  },
+  preview: {
+    allowedHosts: process.env.ALLOWED_HOSTS?.split(',') || [], // Read from env
+}
 
 });
