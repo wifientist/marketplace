@@ -3,6 +3,7 @@ import { useState } from "react";
 //const API_BASE_URL = process.env.API_BASE_URL;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
+console.log('Environment variables:', import.meta.env);
 
 const Signup = () => {
     const [email, setEmail] = useState("");

@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0', // This allows external access
-    proxy: {
+    proxy: {  // Proxy /api requests to the API server for DEV only
       "/api": {
         target: process.env.API_BASE_URL || "http://localhost:5174",
         changeOrigin: true,
