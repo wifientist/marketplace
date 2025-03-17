@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from datetime import timedelta
-from models import User
+from models import User, Company
 from schemas import TokenResponse, UserCreate
 from security import create_access_token, get_password_hash, verify_password, verify_access_token
 from dependencies import get_db, get_current_user
@@ -31,9 +31,11 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already exists")
 
-    company = db.query(Company).filter(Company.id == user_data.company_id).first()
-    if not company:
-        raise HTTPException(status_code=404, detail="Invalid company ID")
+    unassigned_company_id = -1  #default Unassigned company
+    company = db.query(Company).filter(Company.id == unassigned_company_id).first()
+    #company = db.query(Company).filter(Company.id == user_data.company_id).first()
+    #if not company:
+    #    raise HTTPException(status_code=404, detail="Invalid company ID")
 
     hashed_password = get_password_hash(user_data.password)
     new_user = User(email=user_data.email, hashed_password=hashed_password)

@@ -17,7 +17,7 @@ class User(Base):
     role = Column(Enum(RoleEnum), default=RoleEnum.user, nullable=False)  # Default role is "user"
 
     # 🔹 Add ForeignKey to link Users to Companies
-    company_id = Column(Integer, ForeignKey("companies.id"), nullable=True)
+    company_id = Column(Integer, ForeignKey("companies.id"), nullable=False, default=-1)
 
     # Relationships
     proposals = relationship("Proposal", back_populates="creator", cascade="all, delete")
