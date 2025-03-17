@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import Navbar from "@/components/Navbar";
 import Home from "@/pages/Home";
+import Status from "@/pages/Status";
 import Proposals from "@/pages/Proposals";
 import NewProposalForm from "@/components/NewProposalForm";
 import NewBidForm from "@/components/NewBidForm";
@@ -23,6 +24,7 @@ const App = () => {
       <div className="container mx-auto p-6">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/status" element={<Status />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
